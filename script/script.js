@@ -1,9 +1,9 @@
 const displayContainer = document.getElementById('display-container');
-let loadMoreActivated = false;
-let sortDataActivated = false;
 const sortByDateButton = document.getElementById('sort-by-date-btn');
 const loadingSpinner1 = document.getElementById('loading-spinner-1');
 const loadingSpinner2 = document.getElementById('loading-spinner-2');
+let loadMoreActivated = false;
+let sortDataActivated = false;
 
 const loadData = async () => {
     const response = await fetch('https://openapi.programming-hero.com/api/ai/tools');
