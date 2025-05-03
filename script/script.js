@@ -1,17 +1,40 @@
 const displayContainer = document.getElementById('display-container');
+let loadMoreActivated = false;
+let sortDataActivated = false;
+const sortByDateButton = document.getElementById('sort-by-date-btn');
+const loadingSpinner1 = document.getElementById('loading-spinner-1');
+const loadingSpinner2 = document.getElementById('loading-spinner-2');
 
 const loadData = async () => {
     const response = await fetch('https://openapi.programming-hero.com/api/ai/tools');
     const data = await response.json();
     const tools = data.data.tools;
-    console.log(tools)
+    prepareDataBasedOnLoadMoreAndSorted(tools);
+}
+
+const prepareDataBasedOnLoadMoreAndSorted = (tools) => {
+    if(sortDataActivated) {
+        tools = tools.sort((a,b) => new Date(b.published_in) - new Date(a.published_in));
+        displayContainer.innerText = '';
+        tools = loadMoreActivated ? tools : tools.slice(0,7);
+        handleSortByDateButton();
+    }
+    else {
+        tools = loadMoreActivated ? tools.slice(7,tools.length) : tools.slice(0,7);
+    }
     displayData(tools);
 }
 
+const handleSortByDateButton = () => {
+    if(loadMoreActivated) {
+        sortByDateButton.previousElementSibling.classList.remove('mb-[32px]');
+        sortByDateButton.classList.add('hidden');
+    }
+}
+
 const displayData = (tools) => {
-    const slicedTools = tools.slice(0,7);
-    slicedTools.forEach(tool => {
-        if(tool.id === "06") return;
+    tools.forEach(tool => {
+        if(tool.id === "06" || tool.id === "11") return;
         displaySingleData(tool);
     });
 }
@@ -19,7 +42,7 @@ const displayData = (tools) => {
 const displaySingleData = (tool) => {
     displayContainer.innerHTML += `
     <div
-        class="p-3 md:p-5 lg:p-[25px] border border-[rgba(17,17,17,0.10)] w-full h-[617px] rounded-xl shadow-sm">
+        class="p-3 md:p-5 lg:p-[25px] border border-[rgba(17,17,17,0.10)] w-full rounded-xl shadow-sm">
         <figure class="mb-[25px]">
             <img src="${tool.image}" alt="${tool.name} banner"
                 class="rounded-xl w-full aspect-video h-full" />
@@ -45,6 +68,8 @@ const displaySingleData = (tool) => {
     </div>
     `
     addFeatures(tool.name, tool.features);
+    loadingSpinner1.classList.replace('flex','hidden');
+    loadingSpinner2.classList.replace('flex','hidden');
 }
 
 const addFeatures = (id, features) => {
@@ -58,3 +83,16 @@ const addFeatures = (id, features) => {
 }
 
 loadData();
+
+const loadMoreData = () => {
+    document.getElementById('see-more-btn').classList.add('hidden');
+    loadMoreActivated = true;
+    loadingSpinner2.classList.replace('hidden','flex');
+    loadData();
+}
+
+const loadSortedData = () => {
+    sortDataActivated = true;
+    loadingSpinner1.classList.replace('hidden','flex');
+    loadData();
+}

@@ -14,40 +14,23 @@
     <section class="max-w-[1500px] mx-auto my-[50px]">
         <div class="flex flex-col justify-center items-center mb-[50px]">
             <h1 class="text-[45px] font-semibold text-center mb-[32px]">AI Universe Hub</h1>
-            <button id="sort-by-date-btn"
+            <button id="sort-by-date-btn" onclick="loadSortedData()" aria-label="Click to see the latest products first"
                 class="cursor-pointer text-[20px] font-semibold text-white rounded-xl py-[16px] px-[28px] bg-[#EB5757]">Sort
                 By Date</button>
         </div>
+        <!-- Loading Spinner -->
+        <div id="loading-spinner-1" class="h-[30vh] hidden justify-center items-center mb-[50px]">
+            <span class="loading loading-spinner text-accent w-20"></span>
+        </div>
         <!-- Display Products by using API -->
-        <div id="display-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center place-items-center mb-[50px] gap-[20px]">
-            <!-- <div
-                class="p-3 md:p-5 lg:p-[25px] border border-[rgba(17,17,17,0.10)] w-full h-[617px] rounded-xl shadow-sm">
-                <figure class="mb-[25px]">
-                    <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt=""
-                        class="rounded-xl w-full aspect-video h-full" />
-                </figure>
-                <div>
-                    <h3 class="text-[25px] font-semibold text-[#111] mb-4">Features</h3>
-                    <ul class="text-base font-normal text-[#585858] leading-[26px] flex flex-col gap-1">
-                    </ul>
-                </div>
-                <hr class="border-t border-t-[rgba(17,17,17,0.20)] my-[24px]">
-                <div class="flex justify-between items-center">
-                    <div class="flex flex-col">
-                        <h2 class="text-[25px] font-semibold text-[#111] mb-4">Tool Name</h2>
-                        <div class="flex items-center gap-2">
-                            <img src="icons/calender-icon.png" alt="release date">
-                            <p class="text-base font-medium leading-[26px] text-[#585858]">11/01/2022</p>
-                        </div>
-                    </div>
-                    <button id="view-details-btn"
-                        class="cursor-pointer p-[13px] h-[50px] w-[50px] bg-[#FEF7F7] rounded-full"><img
-                            src="icons/arrow-icon.png" alt="view details button"></button>
-                </div>
-            </div> -->
+        <div id="display-container"
+            class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center place-items-center mb-[50px] gap-[20px]">
+        </div>
+        <div id="loading-spinner-2" class="h-[30vh] hidden justify-center items-center mb-[50px]">
+            <span class="loading loading-spinner text-accent w-20"></span>
         </div>
         <div class="text-center">
-            <button id="see-more-btn"
+            <button id="see-more-btn" onclick="loadMoreData()"
                 class="cursor-pointer text-[20px] font-semibold text-white rounded-xl py-[16px] px-[28px] bg-[#EB5757]">See
                 More</button>
         </div>
