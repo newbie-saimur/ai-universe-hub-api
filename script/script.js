@@ -50,14 +50,14 @@ const displaySingleData = (tool) => {
                 class="rounded-xl w-full aspect-video h-full" />
         </figure>
         <div>
-            <h3 class="text-[25px] font-semibold text-[#111] mb-4">Features</h3>
+            <h3 class="text-[20px] md:text-[25px] font-semibold text-[#111] mb-4">Features</h3>
             <ul id="${tool.name}" class="text-base font-normal text-[#585858] leading-[26px] flex flex-col gap-1">
             </ul>
         </div>
         <hr class="border-t border-t-[rgba(17,17,17,0.20)] my-[24px]">
         <div class="flex justify-between items-center">
             <div class="flex flex-col">
-                <h2 class="text-[25px] font-semibold text-[#111] mb-4">${tool.name}</h2>
+                <h2 class="text-[20px] md:text-[25px] font-semibold text-[#111] mb-4">${tool.name}</h2>
                 <div class="flex items-center gap-2">
                     <img src="icons/calender-icon.png" alt="release date">
                     <p class="text-base font-medium leading-[26px] text-[#585858]">${tool.published_in}</p>
@@ -94,45 +94,45 @@ const loadSingleToolData = async (id) => {
 const displaySingleDataOnModal = (tool) => {
     modalBox.innerText = '';
     modalBox.innerHTML = `
-    <div class="flex gap-[20px]">
-        <div class="w-1/2 bg-[rgba(235,87,87,0.05)] border border-[#EB5757] rounded-xl p-[25px]">
+    <div class="flex flex-col lg:flex-row gap-[20px] lg:gap-[10px] xl:gap-[20px] max-h-[90dvh] overflow-y-auto overflow-x-hidden">
+        <div class="w-full lg:w-1/2 bg-[rgba(235,87,87,0.05)] border border-[#EB5757] rounded-xl p-3 md:p-[25px]">
             <div>
-                <h2 class="text-[25px] text-[#111] font-semibold leading-[35px] mb-[25px]">${tool.description}</h2>
+                <h2 class="text-[18px] text-center md:text-left md:text-[25px] text-[#111] font-semibold leading-[26px] md:leading-[35px] mb-[25px]">${tool.description}</h2>
             </div>
-            <div class="flex flex-row gap-4 justify-between mb-[25px]">
-                <div class="flex justify-center items-center text-center h-[100px] bg-white p-4 rounded-xl w-[130px]">
-                    <p class="text-base font-bold text-[#03A30A]">${tool.pricing[0].price}<br>${tool.pricing[0].plan}</p>
+            <div class="flex text-center md:text-left justify-center items-center md:items-start flex-col md:flex-row gap-4 md:justify-evenly mb-[25px]">
+                <div class="flex justify-center items-center text-center h-[100px] bg-white px-8 py-4 md:p-4 rounded-xl w-6/10 md:w-[130px]">
+                    <p class="text-sm md:text-base font-semibold md:font-bold text-[#03A30A]">${tool.pricing[0].price}<br>${tool.pricing[0].plan}</p>
                 </div>
-                <div class="flex justify-center items-center text-center h-[100px] bg-white p-4 rounded-xl w-[130px]">
-                    <p class="text-base font-bold text-[#F28927]">${tool.pricing[1].price}<br>${tool.pricing[1].plan}</p>
+                <div class="flex justify-center items-center text-center h-[100px] bg-white px-8 py-4 md:p-4 rounded-xl w-6/10 md:w-[130px]">
+                    <p class="text-sm md:text-base font-semibold md:font-bold text-[#F28927]">${tool.pricing[1].price}<br>${tool.pricing[1].plan}</p>
                 </div>
-                <div class="flex justify-center items-center text-center h-[100px] bg-white p-4 rounded-xl w-[130px]">
-                    <p class="text-base font-bold text-[#EB5757]">${tool.pricing[2].price}<br>${tool.pricing[2].plan}</p>
+                <div class="flex justify-center items-center text-center h-[100px] bg-white px-8 py-4 md:p-4 rounded-xl w-6/10 md:w-[130px]">
+                    <p class="text-sm md:text-base font-semibold md:font-bold text-[#EB5757]">${tool.pricing[2].price}<br>${tool.pricing[2].plan}</p>
                 </div>
             </div>
-            <div class="flex justify-between">
-                <div class="w-4/7">
-                    <h3 class="text-[25px] font-semibold text-[#111] mb-4">Features</h3>
-                    <ul id="${tool.tool_name}-modal-features" class="text-base font-normal leading-[26px] text-[#585858]">
+            <div class="gap-6 md:gap-1 flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between mb-2 md:mb-0">
+                <div class="w-full text-center md:text-left md:w-4/7">
+                    <h3 class="text-[25px] font-semibold text-[#111] mb-1 md:mb-4">Features</h3>
+                    <ul id="${tool.tool_name}-modal-features" class="ml-4 md:list-disc text-base font-normal leading-[26px] text-[#585858]">
                     </ul>
                 </div>
-                <div class="w-3/7">
-                    <h3 class="text-[25px] font-semibold text-[#111] mb-4">Integrations</h3>
-                    <ul id="${tool.tool_name}-modal-integrations" class="text-base font-normal leading-[26px] text-[#585858]">
+                <div class="w-full text-center md:text-left md:w-3/7">
+                    <h3 class="text-[25px] font-semibold text-[#111] mb-1 md:mb-4">Integrations</h3>
+                    <ul id="${tool.tool_name}-modal-integrations" class="ml-4 md:list-disc text-base font-normal leading-[26px] text-[#585858]">
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="w-1/2 border border-[#E7E7E7] rounded-xl p-[25px]">
+        <div class="w-full lg:w-1/2 border border-[#E7E7E7] rounded-xl p-3 md:p-[25px]">
             <div class="relative mb-[25px]">
-                <img class="aspect-video max-h-[339px] w-full max-w-[437px] rounded-xl" src="${tool.image_link[0]}"
+                <img class="aspect-video lg:max-h-[339px] w-full lg:max-w-[437px] rounded-xl" src="${tool.image_link[0]}"
                     alt="${tool.tool_name}">
-                <p id="accuracy-field" class="hidden absolute right-2 top-2 rounded-lg z-10 bg-[#EB5757] py-[5px] px-[15px] text-base font-semibold text-white"><span id="accuracy-message"></span>%
+                <p id="accuracy-field" class="hidden absolute right-2 top-2 rounded-lg z-10 bg-[#EB5757] py-[5px] px-[15px] text-sm md:text-base font-medium md:font-semibold text-white"><span id="accuracy-message"></span>%
                     accuracy</p>
             </div>
-            <div class="text-center flex flex-col justify-center items-center">
-                <h2 class="text-[25px] font-semibold text-[#111111] mb-4">${tool.input_output_examples[0].input}</h2>
-                <p class="text-base font-normal leading-[26px] text-[#585858] w-9/10">${tool.input_output_examples[0].output}</p>
+            <div class="text-center flex flex-col justify-center items-center mb-4">
+                <h2 class="text-[20px] md:text-[25px] font-semibold text-[#111111] mb-4">${tool.input_output_examples[0].input}</h2>
+                <p class="text-sm md:text-base font-normal leading-[26px] text-[#585858] w-19/20 md:w-9/10">${tool.input_output_examples[0].output}</p>
             </div>
         </div>
     </div>
@@ -150,7 +150,7 @@ const addModalFeatures = (id, features) => {
     keys.forEach(key => {
         const feature = features[key].feature_name;
         const li = document.createElement('li');
-        li.innerText = ` • ${feature}`;
+        li.innerText = `${feature}`;
         ul.appendChild(li);
     });
 }
@@ -160,10 +160,11 @@ const addModalIntegrations = (id, integratios) => {
     const ul = document.getElementById(id);
     integratios.forEach(element => {
         const li = document.createElement('li');
-        li.innerText = ` • ${element}`;
+        li.innerText = `${element}`;
         ul.appendChild(li);
     });
     if(integratios.length == 0) {
+        ul.classList.remove('list-disc');
         const li = document.createElement('li');
         li.innerText = 'No data Found';
         ul.appendChild(li);

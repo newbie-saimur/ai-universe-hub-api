@@ -11,11 +11,11 @@
 </head>
 
 <body class="font-work-sans">
-    <section class="max-w-[1500px] mx-auto my-[50px]">
-        <div class="flex flex-col justify-center items-center mb-[50px]">
-            <h1 class="text-[45px] font-semibold text-center mb-[32px]">AI Universe Hub</h1>
+    <section class="max-w-[1500px] mx-auto my-[30px] md:my-[50px]">
+        <div class="flex flex-col justify-center items-center mb-[30px] md:mb-[50px]">
+            <h1 class="text-[32px] md:text-[45px] font-semibold text-center mb-4 md:mb-[32px]">AI Universe Hub</h1>
             <button id="sort-by-date-btn" onclick="loadSortedData()" aria-label="Click to see the latest products first"
-                class="cursor-pointer text-[20px] font-semibold text-white rounded-xl py-[16px] px-[28px] bg-[#EB5757]">Sort
+                class="cursor-pointer text-base md:text-[20px] font-semibold text-white rounded-xl py-[10px] md:py-[16px] px-[28px] bg-[#EB5757]">Sort
                 By Date</button>
         </div>
         <!-- Loading Spinner -->
@@ -24,25 +24,25 @@
         </div>
         <!-- Display Products by using API -->
         <div id="display-container"
-            class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center place-items-center mb-[50px] gap-[20px]">
+            class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center place-items-center mb-[30px] md:mb-[50px] gap-[20px]">
         </div>
         <div id="loading-spinner-2" class="h-[30vh] hidden justify-center items-center mb-[50px]">
             <span class="loading loading-spinner text-accent w-20"></span>
         </div>
         <div class="text-center">
             <button id="see-more-btn" onclick="loadMoreData()"
-                class="cursor-pointer text-[20px] font-semibold text-white rounded-xl py-[16px] px-[28px] bg-[#EB5757]">See
+                class="cursor-pointer text-base md:text-[20px] font-semibold text-white rounded-xl py-[10px] md:py-[16px] px-[28px] bg-[#EB5757]">See
                 More</button>
         </div>
     </section>
     <!-- Product Description Modal -->
     <section id="modal-box-container" class="hidden fixed top-0 left-0 w-[100dvw] h-[100dvh]">
-        <div id="modal-overlay" class="flex bg-[rgba(17,17,17,0.60)] h-[100dvh] justify-center items-center">
-            <div class="relative z-50 bg-white w-full max-w-[1246px] mx-auto rounded-xl p-[126px]">
+        <div id="modal-overlay" class="flex bg-[rgba(17,17,17,0.60)] h-[100dvh] justify-center items-center px-2 md:px-8">
+            <div class="relative z-10 bg-white w-full max-w-[1246px] mx-auto rounded-xl p-[10px] md:p-[20px] lg:p-[20px] xl:p-[80px] h-[95dvh]">
                 <div id="modal-box"></div>
                 <div class="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2">
                     <button>
-                        <img onclick="closeModal()" class="bg-[#EB5757] p-[9px] rounded-full" src="icons/close-icon.png" alt="">
+                        <img onclick="closeModal()" class="bg-[#EB5757] p-1 lg:p-[9px] rounded-full" src="icons/close-icon.png" alt="">
                     </button>
                 </div>
             </div>
