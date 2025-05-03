@@ -127,7 +127,7 @@ const displaySingleDataOnModal = (tool) => {
             <div class="relative mb-[25px]">
                 <img class="aspect-video max-h-[339px] w-full max-w-[437px] rounded-xl" src="${tool.image_link[0]}"
                     alt="${tool.tool_name}">
-                <p id="tool-accuracy" class="hidden absolute right-2 top-2 rounded-lg z-10 bg-[#EB5757] py-[5px] px-[15px] text-base font-semibold text-white"><span></span>%
+                <p id="accuracy-field" class="hidden absolute right-2 top-2 rounded-lg z-10 bg-[#EB5757] py-[5px] px-[15px] text-base font-semibold text-white"><span id="accuracy-message"></span>%
                     accuracy</p>
             </div>
             <div class="text-center flex flex-col justify-center items-center">
@@ -141,6 +141,7 @@ const displaySingleDataOnModal = (tool) => {
     const integrationId = tool.tool_name+"-modal-integrations"
     addModalFeatures(featureId, tool.features);
     addModalIntegrations(integrationId, tool.integrations);
+    showAccuracy(tool);
 }
 
 const addModalFeatures = (id, features) => {
@@ -166,6 +167,16 @@ const addModalIntegrations = (id, integratios) => {
         const li = document.createElement('li');
         li.innerText = 'No data Found';
         ul.appendChild(li);
+    }
+}
+
+const showAccuracy = (tool) => {
+    const accuracySpan = document.getElementById('accuracy-message');
+    const accuracyField = document.getElementById('accuracy-field');
+    let accuracy = tool.accuracy.score;
+    if(typeof accuracy == 'number') {
+        accuracySpan.innerText = accuracy * 100;
+        accuracyField.classList.remove('hidden');
     }
 }
 
