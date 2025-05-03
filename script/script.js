@@ -2,6 +2,8 @@ const displayContainer = document.getElementById('display-container');
 const sortByDateButton = document.getElementById('sort-by-date-btn');
 const loadingSpinner1 = document.getElementById('loading-spinner-1');
 const loadingSpinner2 = document.getElementById('loading-spinner-2');
+const modalBoxContainer = document.getElementById('modal-box-container');
+const modalBox = document.getElementById('modal-box');
 let loadMoreActivated = false;
 let sortDataActivated = false;
 
@@ -61,7 +63,7 @@ const displaySingleData = (tool) => {
                     <p class="text-base font-medium leading-[26px] text-[#585858]">${tool.published_in}</p>
                 </div>
             </div>
-            <button onclick="showSpecificToolDetails()"
+            <button onclick="showSpecificToolDetails(${tool.id})"
                 class="cursor-pointer p-[13px] h-[50px] w-[50px] bg-[#FEF7F7] rounded-full"><img
                     src="icons/arrow-icon.png" alt="view details button"></button>
         </div>
@@ -80,6 +82,109 @@ const addFeatures = (id, features) => {
         ul.appendChild(li);
         if(typeof features[i] == 'undefined') li.classList.add('text-transparent');
     }
+}
+
+const loadSingleToolData = async (id) => {
+    const response = await fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`);
+    const data = await response.json();
+    const tool = data.data;
+    displaySingleDataOnModal(tool);
+}
+
+const displaySingleDataOnModal = (tool) => {
+    modalBox.innerText = '';
+    modalBox.innerHTML = `
+    <div class="flex gap-[20px]">
+        <div class="w-1/2 bg-[rgba(235,87,87,0.05)] border border-[#EB5757] rounded-xl p-[25px]">
+            <div>
+                <h2 class="text-[25px] text-[#111] font-semibold leading-[35px] mb-[25px]">${tool.description}</h2>
+            </div>
+            <div class="flex flex-row gap-4 justify-between mb-[25px]">
+                <div class="flex justify-center items-center text-center h-[100px] bg-white p-4 rounded-xl w-[130px]">
+                    <p class="text-base font-bold text-[#03A30A]">${tool.pricing[0].price}<br>${tool.pricing[0].plan}</p>
+                </div>
+                <div class="flex justify-center items-center text-center h-[100px] bg-white p-4 rounded-xl w-[130px]">
+                    <p class="text-base font-bold text-[#F28927]">${tool.pricing[1].price}<br>${tool.pricing[1].plan}</p>
+                </div>
+                <div class="flex justify-center items-center text-center h-[100px] bg-white p-4 rounded-xl w-[130px]">
+                    <p class="text-base font-bold text-[#EB5757]">${tool.pricing[2].price}<br>${tool.pricing[2].plan}</p>
+                </div>
+            </div>
+            <div class="flex justify-between">
+                <div class="w-4/7">
+                    <h3 class="text-[25px] font-semibold text-[#111] mb-4">Features</h3>
+                    <ul id="${tool.tool_name}-modal-features" class="text-base font-normal leading-[26px] text-[#585858]">
+                    </ul>
+                </div>
+                <div class="w-3/7">
+                    <h3 class="text-[25px] font-semibold text-[#111] mb-4">Integrations</h3>
+                    <ul id="${tool.tool_name}-modal-integrations" class="text-base font-normal leading-[26px] text-[#585858]">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="w-1/2 border border-[#E7E7E7] rounded-xl p-[25px]">
+            <div class="relative mb-[25px]">
+                <img class="aspect-video max-h-[339px] w-full max-w-[437px] rounded-xl" src="${tool.image_link[0]}"
+                    alt="${tool.tool_name}">
+                <p id="tool-accuracy" class="hidden absolute right-2 top-2 rounded-lg z-10 bg-[#EB5757] py-[5px] px-[15px] text-base font-semibold text-white"><span></span>%
+                    accuracy</p>
+            </div>
+            <div class="text-center flex flex-col justify-center items-center">
+                <h2 class="text-[25px] font-semibold text-[#111111] mb-4">${tool.input_output_examples[0].input}</h2>
+                <p class="text-base font-normal leading-[26px] text-[#585858] w-9/10">${tool.input_output_examples[0].output}</p>
+            </div>
+        </div>
+    </div>
+    `
+    const featureId = tool.tool_name + "-modal-features"
+    const integrationId = tool.tool_name+"-modal-integrations"
+    addModalFeatures(featureId, tool.features);
+    addModalIntegrations(integrationId, tool.integrations);
+}
+
+const addModalFeatures = (id, features) => {
+    const ul = document.getElementById(id);
+    const keys = Object.keys(features);
+    keys.forEach(key => {
+        const feature = features[key].feature_name;
+        const li = document.createElement('li');
+        li.innerText = ` • ${feature}`;
+        ul.appendChild(li);
+    });
+}
+
+
+const addModalIntegrations = (id, integratios) => {
+    const ul = document.getElementById(id);
+    integratios.forEach(element => {
+        const li = document.createElement('li');
+        li.innerText = ` • ${element}`;
+        ul.appendChild(li);
+    });
+    if(integratios.length == 0) {
+        const li = document.createElement('li');
+        li.innerText = 'No data Found';
+        ul.appendChild(li);
+    }
+}
+
+modalBoxContainer.addEventListener('click', function(event) {
+    if(event.target.id === 'modal-overlay') closeModal();
+});
+
+document.addEventListener('keyup', function(event) {
+    if(event.key === "Escape") closeModal();
+})
+
+const closeModal = () => {
+    modalBoxContainer.classList.add('hidden');
+}
+
+const showSpecificToolDetails = (id) => {
+    id = id.toString().padStart(2, '0');
+    loadSingleToolData(id);
+    modalBoxContainer.classList.remove('hidden');
 }
 
 loadData();
